@@ -1,0 +1,94 @@
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Users {
+    id          String     @id @default(uuid())
+    email       String     @unique
+    password    String
+    first_name  String
+    last_name   String
+    image       String
+    phone       String?
+    address     String?
+    role        String     @default("user")
+    create_date DateTime   @default(now())
+    update_date DateTime   @updatedAt
+    Products    Products[]
+}
+
+model Products {
+    id          String       @id @default(uuid())
+    name        String
+    sku         String
+    detail      String
+    price       String
+    cost        String?
+    count       Int
+    image       String
+    create_date DateTime     @default(now())
+    update_date DateTime     @updatedAt
+    create_by   String
+    user_create Users        @relation(fields: [create_by], references: [id])
+    OrdersItem  OrderItems[]
+    category_id String
+    category    Categorys    @relation(fields: [category_id], references: [id])
+}
+
+model Categorys {
+    id          String     @id @default(uuid())
+    name        String
+    detail      String
+    create_date DateTime   @default(now())
+    update_date DateTime   @updatedAt
+    products    Products[]
+}
+
+model PrompayDetails {
+    id           String   @id @default(uuid())
+    first_name   String
+    last_name    String
+    number_phone String
+    create_date  DateTime @default(now())
+    update_date  DateTime @updatedAt
+    Orders       Orders[]
+}
+
+model Orders {
+    id             String         @id @default(uuid())
+    detail         String
+    status         String
+    total_price    String
+    create_date    DateTime       @default(now())
+    update_date    DateTime       @updatedAt
+    order_item     OrderItems[]
+    payment_id     String         @unique
+    Payments       Payments       @relation(fields: [payment_id], references: [id])
+    prompay_id     String?
+    PrompayDetails PrompayDetails? @relation(fields: [prompay_id], references: [id])
+}
+
+model Payments {
+    id             String   @id @default(uuid())
+    type           String
+    image          String?
+    status_payment String
+    create_date    DateTime @default(now())
+    update_date    DateTime @updatedAt
+    Orders         Orders?
+}
+
+model OrderItems {
+    id             String   @id @default(uuid())
+    order_id       String
+    order_by       Orders   @relation(fields: [order_id], references: [id])
+    product_id     String
+    product_detail Products @relation(fields: [product_id], references: [id])
+    count          Int
+    price          String
+}

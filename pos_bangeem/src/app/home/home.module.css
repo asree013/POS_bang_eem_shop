@@ -1,0 +1,80 @@
+.home {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.contentHead {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.contentBody {
+    display: flex;
+    align-items: start;
+    justify-content: space-around;
+    flex-direction: row;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.cardHead {
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.contentHeadChart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 20px;
+}
+
+.contentProduct {
+    padding: 10px;
+}
+
+.contentOrder {
+    padding: 10px;
+
+}
+
+@media only screen and (max-width: 450px) {
+    .contentHead {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 10px;
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    .contentBody {
+        display: flex;
+        align-items: start;
+        justify-content: space-around;
+        flex-direction: column;
+        margin: 15px 0;
+        width: 100%;
+    }
+
+    .cardHead {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 10px;
+    }
+
+    .contentProduct {
+        overflow-x: scroll;
+        width: 100%;
+        padding: 10px;
+    }
+}
